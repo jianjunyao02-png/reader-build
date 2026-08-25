@@ -9,16 +9,22 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
       - name: Install PyInstaller
         run: pip install pyinstaller
+
       - name: Build EXE
-        run: pyinstaller --onefile --noconsole reader.py
+        run: python -m PyInstaller --onefile --noconsole reader.py
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: reader-exe
           path: dist/reader.exe
